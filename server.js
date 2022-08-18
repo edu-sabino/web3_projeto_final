@@ -9,6 +9,21 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const db = require("./db");
+
+(async () => {
+
+  //const result = await db.insertCars({ placa: "DBA-2819", modelo: "VW Gol", cor: "Vermelho", responsavel: "Márcio", apartamento: 101, bloco: "A" });
+  //console.log(result);
+
+  //const atualizacao = await db.updateCars(7, { placa: "FLA2B18", modelo: "Kia Cerato", cor: "Branco", responsavel: "Nelson", apartamento: 502, bloco: "A" });
+  //console.log(atualizacao);
+
+  //const delecao = await db.deleteCars(7);
+  const veiculos = await db.selectCars();
+  console.log(veiculos);
+
+})();
 
 const initializePassport = require("./passport-config");
 initializePassport(
@@ -18,7 +33,6 @@ initializePassport(
 );
 
 const users = []; // variável local para armazenar os usuários em memória
-const veiculos = []; // variável local para armazenar os carros em memória. Depois de criar o BD, excluir ela.
 
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({ extended: false })); // para poder usar req.body
